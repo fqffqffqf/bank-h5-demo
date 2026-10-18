@@ -16,58 +16,8 @@ export const unsupported199Validator: ValidatorFn = (control: AbstractControl): 
   standalone: true,
   imports: [ReactiveFormsModule],
   // 2. 将内联样式抽离到组件的 styles 中
-  styles: [`
-    .error-text {
-      color: red;
-      font-size: 12px;
-    }
-  `],
-  template: `
-    <h2>手机银行登录</h2>
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-      <label>手机号</label>
-      <input formControlName="phone" data-testid="phone-input" placeholder="请输入手机号" />
-      
-      @if (loginForm.get('phone')?.invalid && loginForm.get('phone')?.touched) {
-        @if (loginForm.get('phone')?.hasError('unsupported199')) {
-          <div class="error-text">暂不支持199号段</div>
-        } @else {
-          <div class="error-text">请输入11位手机号</div>
-        }
-      }
-
-      @if (loginSuccess) {
-      <div style="color: green; margin-top: 10px;" data-testid="login-success-msg">登录成功，正在跳转...</div>
-      }
-
-      <label>验证码</label>
-      <input formControlName="code" data-testid="code-input" placeholder="请输入6位验证码" />
-      @if (loginForm.get('code')?.invalid && loginForm.get('code')?.touched) {
-        <div class="error-text">验证码必须为6位数字</div>
-      }
-
-      <button type="submit" data-testid="login-btn" [disabled]="loginForm.invalid">登录</button>
-    </form>
-
-    <hr />
-    <h3>最近交易</h3>
-    
-    @if (loading) {
-      <div>加载中...</div>
-    } @else {
-      @if (transactions.length === 0) {
-        <div>暂无交易</div>
-      } @else {
-        <ul>
-          @for (t of transactions; track t.id) {
-            <li data-testid="transaction-item">
-              {{ t.type }} - {{ t.amount }} - {{ t.date }}
-            </li>
-          }
-        </ul>
-      }
-    }
-  `,
+  styleUrl: `./app.scss`,
+  templateUrl: './app.html',
 })
 export class App implements OnInit {
   loginForm = new FormGroup({
